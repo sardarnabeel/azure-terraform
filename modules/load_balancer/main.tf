@@ -10,8 +10,8 @@ resource "azurerm_public_ip" "lb_public_ip" {
 # Load Balancer
 resource "azurerm_lb" "lb" {
   name                = var.lb.lb_name
-  location            = var.lb.location
-  resource_group_name = var.lb.resource_group_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   sku                 = "Standard"
 
   frontend_ip_configuration {
@@ -43,7 +43,7 @@ resource "azurerm_lb_rule" "example" {
   loadbalancer_id                = azurerm_lb.lb.id
   name                           = "LBRule"
   protocol                       = "Tcp"
-  frontend_port                  = 3389
+  frontend_port                  = 80
   backend_port                   = 80
   frontend_ip_configuration_name = "LoadBalancerFrontend"
   disable_outbound_snat          = true
