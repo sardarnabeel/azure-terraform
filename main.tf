@@ -30,20 +30,20 @@ module "private_subnet" {
   virtual_network_name = module.vnet.vnet_name
 }
 
-resource "azurerm_public_ip" "nat_ip" {
-  name                = "natPublicIp"
-  location            = module.resource_group.resource_group_location
-  resource_group_name = module.resource_group.resource_group_name
-  allocation_method   = "Static"
-  sku                 = "Standard"
-}
+# resource "azurerm_public_ip" "nat_ip" {
+#   name                = "natPublicIp"
+#   location            = module.resource_group.resource_group_location
+#   resource_group_name = module.resource_group.resource_group_name
+#   allocation_method   = "Static"
+#   sku                 = "Standard"
+# }
 
 module "nat_gateway" {
   source              = "./modules/nat_gateway"
   nat-var             = var.nat-var
   location            = module.resource_group.resource_group_location
   resource_group_name = module.resource_group.resource_group_name
-  public_ip_id        = azurerm_public_ip.nat_ip.id
+  # public_ip_id        = azurerm_public_ip.nat_ip.id
   subnet_id           = module.private_subnet.subnet_id
 }
 module "mysql_vm" {
@@ -74,7 +74,7 @@ module "wordpress_vm" {
 
 module "wordpress_nsg" {
   source                = "./modules/wordpress_nsg"
-  nsg_name              = var.wordpressnsg_name
+  wordpress-nsg-var     = var.wordpress-nsg-var
   location              = module.resource_group.resource_group_location
   resource_group_name   = module.resource_group.resource_group_name
   source_address_prefix = "0.0.0.0/0"  # public access for HTTP
