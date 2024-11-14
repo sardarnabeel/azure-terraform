@@ -21,6 +21,7 @@ module "public_subnet" {
   subnet-var          = var.subnet-var-pub
   resource_group_name  = module.resource_group.resource_group_name
   virtual_network_name = module.vnet.vnet_name
+  Outbound         = var.Outbound-pub
 }
 
 module "private_subnet" {
@@ -28,6 +29,7 @@ module "private_subnet" {
   subnet-var          = var.subnet-var-pvt
   resource_group_name  = module.resource_group.resource_group_name
   virtual_network_name = module.vnet.vnet_name
+  Outbound             = var.Outbound-pvt
 }
 
 # resource "azurerm_public_ip" "nat_ip" {

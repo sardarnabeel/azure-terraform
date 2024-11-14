@@ -4,7 +4,9 @@
 variable "ssh_public_key_path" {
   type = string
 }
-
+variable "Outbound" {
+  type = bool
+}
 variable "lb_name" {
   type = object({
     lb_name      = string

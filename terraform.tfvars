@@ -1,5 +1,7 @@
 
 ssh_public_key_path  = "set ssh pub key path here"
+Outbound-pub = true
+Outbound-pvt = false
 
 lb_name = {
     lb_name      = "example-nat-gateway"

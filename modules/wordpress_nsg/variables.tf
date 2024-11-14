@@ -1,6 +1,4 @@
-variable "nsg_name" {
-  type = string
-}
+
 
 variable "location" {
   type = string
@@ -14,3 +12,4 @@ variable "source_address_prefix" {
   type    = string
   default = "*"
 }
+variable "wordpress-nsg-var" {}
