@@ -1,5 +1,5 @@
 resource "azurerm_network_interface" "vm_nic" {
-  name                = "${var.vm_name}-nic"
+  name                = "${var.vm-var.vm_name}-nic"
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -15,7 +15,7 @@ resource "azurerm_network_interface_security_group_association" "example" {
   network_security_group_id = var.network_security_group_id
 }
 resource "azurerm_linux_virtual_machine" "vm" {
-  name                = var.vm_name
+  name                = var.vm-var.vm_name
   location            = var.location
   resource_group_name = var.resource_group_name
   network_interface_ids = [azurerm_network_interface.vm_nic.id]
@@ -39,6 +39,6 @@ resource "azurerm_linux_virtual_machine" "vm" {
     version   = "latest"
   }
 
-  computer_name  = var.vm_name
+  computer_name  = var.vm-var.vm_name
   tags           = var.tags
 }

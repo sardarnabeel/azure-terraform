@@ -13,7 +13,3 @@ output "private_subnet_id" {
 output "nat_gateway_id" {
   value = module.nat_gateway.nat_gateway_id
 }
-
-# output "lb_id" {
-#   value = module.load_balancer.lb_id
-# }

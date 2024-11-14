@@ -1,48 +1,81 @@
-variable "resource_group_name" {
-  type = string
-}
 
-variable "location" {
-  type = string
-}
 
-variable "vnet_name" {
-  type = string
-}
 
-variable "address_space" {
-  type = list(string)
-}
-
-variable "public_subnet_name" {
-  type = string
-}
-
-variable "private_subnet_name" {
-  type = string
-}
-
-variable "public_subnet_prefix" {
-  type = list(string)
-}
-
-variable "private_subnet_prefix" {
-  type = list(string)
-}
-
-variable "nat_gateway_name" {
+variable "ssh_public_key_path" {
   type = string
 }
 
 variable "lb_name" {
-  type = string
+  type = object({
+    lb_name      = string
+  })
 }
-variable "ssh_public_key_path" {
-  type = string
-}
+
 variable "mysqlnsg_name" {
-  type = string
+  type = object({
+    nsg_name      = string
+    source_address_prefix = string
+  })
+  default = {
+  nsg_name             = ""
+  source_address_prefix = "*"
+  }
 }
-variable "wordpressnsg_name" {
-  type = string
+
+variable "nat-var" {
+  type = object({
+    nat_gateway_name      = string
+  })
+}
+
+variable "rg-var" {
+  type = object({
+    location     = string
+    resource_group_name = string
+  })  
+  
+}
+
+variable "subnet-var-pub" {
+  type = object({
+    subnet_name     = string
+    address_prefixes = list(string)
+  })  
+  
+}
+
+variable "subnet-var-pvt" {
+  type = object({
+    subnet_name     = string
+    address_prefixes = list(string)
+  })  
+  
+}
+
+variable "mysqlvm-var" {
+  type = object({
+    vm_name = string
+  })
+  
+}
+
+variable "wordpressvm-var" {
+  type = object({
+    vm_name = string
+  })
+  
+}
+
+variable "vnet-var" {
+  type = object({
+    vnet_name = string
+    address_space = list(string)
+  })
+  
+}
+
+variable "wordpress-nsg-var" {
+  type = object({
+    nsg_name = string
+  })
 }

@@ -1,31 +1,30 @@
-# Public IP for Load Balancer
+# Public IP
 resource "azurerm_public_ip" "lb_public_ip" {
-  name                         = "${var.lb_name}-public-ip"
-  location                     = var.location
-  resource_group_name          = var.resource_group_name
-  allocation_method            = "Static"  # Static IP for persistent access
-  sku                          = "Standard"  # Required SKU for public IP with Standard Load Balancers
+  name                         = "${var.lb.lb_name}-public-ip"
+  location                     = var.lb.location
+  resource_group_name          = var.lb.resource_group_name
+  allocation_method            = "Static"
+  sku                          = "Standard"
 }
 
 # Load Balancer
 resource "azurerm_lb" "lb" {
-  name                = var.lb_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  sku                 = "Standard"  # Required SKU for standard load balancer
+  name                = var.lb.lb_name
+  location            = var.lb.location
+  resource_group_name = var.lb.resource_group_name
+  sku                 = "Standard"
 
   frontend_ip_configuration {
     name                      = "LoadBalancerFrontend"
-    public_ip_address_id      = azurerm_public_ip.lb_public_ip.id  # Attach the public IP to the frontend
+    public_ip_address_id      = azurerm_public_ip.lb_public_ip.id
   }
 
-  # Remove the backend_address_pool block here
-  # The backend address pool is defined separately below
+ 
 }
 
-# Backend Address Pool (list of servers or VM IPs)
+# Backend Address Pool
 resource "azurerm_lb_backend_address_pool" "lb_backend_pool" {
-  loadbalancer_id = azurerm_lb.lb.id  # Link to the load balancer
+  loadbalancer_id = azurerm_lb.lb.id  # Link to thr lb
   name            = "BackendPool"
 }
 
@@ -33,8 +32,8 @@ resource "azurerm_lb_backend_address_pool" "lb_backend_pool" {
 resource "azurerm_lb_probe" "lb_health_probe" {
   loadbalancer_id = azurerm_lb.lb.id
   name            = "HealthProbe"
-  protocol        = "Tcp"  # Can be "Http" or "Https" if needed
-  port            = 80     # Health check port
+  protocol        = "Tcp"
+  port            = 80
   interval_in_seconds = 5
   number_of_probes    = 2
 }
@@ -45,13 +44,12 @@ resource "azurerm_lb_rule" "example" {
   name                           = "LBRule"
   protocol                       = "Tcp"
   frontend_port                  = 3389
-  backend_port                   = 3389
+  backend_port                   = 80
   frontend_ip_configuration_name = "LoadBalancerFrontend"
-  disable_outbound_snat          = true  # Set to true to avoid conflict with outbound rule
-#   backend_address_pool_id        = azurerm_lb_backend_address_pool.lb_backend_pool.id
+  disable_outbound_snat          = true
 }
 
-# Outbound Rule (Optional)
+# Outbound Rule
 resource "azurerm_lb_outbound_rule" "lb_outbound_rule" {
   loadbalancer_id = azurerm_lb.lb.id
   name            = "OutboundRule"

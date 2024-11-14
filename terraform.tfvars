@@ -1,13 +1,46 @@
-resource_group_name  = "test-rg"
-location             = "East US"
-vnet_name            = "example-vnet"
-address_space        = ["10.0.0.0/16"]
-public_subnet_name   = "public-subnet"
-private_subnet_name  = "private-subnet"
-public_subnet_prefix = ["10.0.1.0/24"]
-private_subnet_prefix = ["10.0.2.0/24"]
-nat_gateway_name     = "example-nat-gateway"
-lb_name              = "example-load-balancer"
-ssh_public_key_path  = "/home/nabeel/.ssh/id_rsa.pub"
-mysqlnsg_name             = "mysql-nsg"
-wordpressnsg_name         = "wordpress-nsg"
+
+ssh_public_key_path  = "set ssh pub key path here"
+
+lb_name = {
+    lb_name      = "example-nat-gateway"
+
+}
+
+mysqlnsg_name = {
+    nsg_name      = "mysql-nsg"
+    source_address_prefix = "10.0.1.0/24"
+
+}
+
+nat-var = {
+    nat_gateway_name      = "example-nat-gateway"
+}
+
+rg-var = {
+  resource_group_name  = "test-rg"
+  location             = "East US"
+}
+subnet-var-pub = {
+  subnet_name = "public-subnet"
+  address_prefixes = ["10.0.1.0/24"]
+
+}
+subnet-var-pvt = {
+  subnet_name = "private-subnet"
+  address_prefixes = ["10.0.2.0/24"]
+
+}
+mysqlvm-var = {
+    vm_name = "mysql-vm"
+}
+wordpressvm-var = {
+  vm_name = "wordpress-vm"
+}
+
+vnet-var = {
+  vnet_name = "example-vnet"
+  address_space = ["10.0.0.0/16"]
+}
+wordpress-nsg-var = {
+  nsg_name = "wordpress-nsg"
+}

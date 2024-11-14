@@ -1,6 +1,6 @@
-variable "nat_gateway_name" {
-  type = string
-}
+# variable "nat_gateway_name" {
+#   type = string
+# }
 
 variable "location" {
   type = string
@@ -17,3 +17,5 @@ variable "public_ip_id" {
 variable "subnet_id" {
   type = string
 }
+
+variable "nat-var" {}
