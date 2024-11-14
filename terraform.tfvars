@@ -1,0 +1,13 @@
+resource_group_name  = "test-rg"
+location             = "East US"
+vnet_name            = "example-vnet"
+address_space        = ["10.0.0.0/16"]
+public_subnet_name   = "public-subnet"
+private_subnet_name  = "private-subnet"
+public_subnet_prefix = ["10.0.1.0/24"]
+private_subnet_prefix = ["10.0.2.0/24"]
+nat_gateway_name     = "example-nat-gateway"
+lb_name              = "example-load-balancer"
+ssh_public_key_path  = "/home/nabeel/.ssh/id_rsa.pub"
+mysqlnsg_name             = "mysql-nsg"
+wordpressnsg_name         = "wordpress-nsg"
